@@ -51,6 +51,7 @@ public:
       }
     }
   }
+
   void twist2wheels(float vx, float vy, float wz) {
 
     std::vector<float> vel_axis = {wz, vx, vy};
@@ -68,7 +69,7 @@ public:
 
     timer_->cancel();
     RCLCPP_INFO(this->get_logger(), "Move forward");
-    twist2wheels(1.0, 0.0, 0.0);
+    twist2wheels(0.25, 0.0, 0.0);
     std_msgs::msg::Float32MultiArray velocities;
     for (int i = 0; i < 4; ++i) {
       velocities.data.push_back(result[i]);
@@ -80,7 +81,7 @@ public:
     }
 
     RCLCPP_INFO(this->get_logger(), "Move backward");
-    twist2wheels(-1.0, 0.0, 0.0);
+    twist2wheels(-0.25, 0.0, 0.0);
     velocities.data.clear();
     for (int i = 0; i < 4; ++i) {
       velocities.data.push_back(result[i]);
@@ -92,7 +93,7 @@ public:
     }
     RCLCPP_INFO(this->get_logger(), "Move left");
 
-    twist2wheels(0.0, 1.0, 0.0);
+    twist2wheels(0.0, 0.25, 0.0);
     velocities.data.clear();
     for (int i = 0; i < 4; ++i) {
       velocities.data.push_back(result[i]);
@@ -104,7 +105,7 @@ public:
     }
 
     RCLCPP_INFO(this->get_logger(), "Move right");
-    twist2wheels(0.0, -1.0, 0.0);
+    twist2wheels(0.0, -0.25, 0.0);
     velocities.data.clear();
     for (int i = 0; i < 4; ++i) {
       velocities.data.push_back(result[i]);
@@ -116,7 +117,7 @@ public:
     }
 
     RCLCPP_INFO(this->get_logger(), "Move clockwise");
-    twist2wheels(0.0, 0.0, -1.0);
+    twist2wheels(0.0, 0.0, -0.25);
     velocities.data.clear();
     for (int i = 0; i < 4; ++i) {
       velocities.data.push_back(result[i]);
@@ -128,7 +129,7 @@ public:
     }
 
     RCLCPP_INFO(this->get_logger(), "Move counter-clockwise");
-    twist2wheels(0.0, 0.0, 1.0);
+    twist2wheels(0.0, 0.0, 0.25);
     velocities.data.clear();
     for (int i = 0; i < 4; ++i) {
       velocities.data.push_back(result[i]);
