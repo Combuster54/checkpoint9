@@ -23,10 +23,6 @@ using namespace std::chrono_literals;
 class KinematicModelClass : public rclcpp::Node {
 
 public:
-  float v1 = 0.0;
-  float v2 = 0.0;
-  float v3 = 0.0;
-  float v4 = 0.0;
   geometry_msgs::msg::Twist vel_;
   float l = 0.165989;
   float w = 0.16256;
@@ -87,7 +83,7 @@ public:
             std::bind(&KinematicModelClass::wheel_speed_callback, this, _1),
             options_1);
     timer_ = this->create_wall_timer(
-        500ms, std::bind(&KinematicModelClass::start, this));
+        100ms, std::bind(&KinematicModelClass::start, this));
     psudo_inverse();
   }
 
@@ -99,9 +95,8 @@ public:
     vel_.linear.x = result(1, 0);
     vel_.linear.y = result(2, 0);
     cmd_vel_pub_->publish(vel_);
-    RCLCPP_INFO(this->get_logger(), "Wz: %f", result(0, 0));
-    RCLCPP_INFO(this->get_logger(), "Vx: %f", result(1, 0));
-    RCLCPP_INFO(this->get_logger(), "Vy: %f", result(2, 0));
+    RCLCPP_INFO(this->get_logger(), "[FINAL] Wz: %f  Vx: %f  Vy: %f ",
+                result(0, 0), result(1, 0), result(2, 0));
   }
   void psudo_inverse() {
 
@@ -112,11 +107,6 @@ public:
 
   void wheel_speed_callback(
       const std_msgs::msg::Float32MultiArray::SharedPtr float_msg) {
-
-    v1 = float_msg->data[0];
-    v2 = float_msg->data[1];
-    v3 = float_msg->data[2];
-    v4 = float_msg->data[3];
 
     u(0, 0) = float_msg->data[0];
     u(1, 0) = float_msg->data[1];

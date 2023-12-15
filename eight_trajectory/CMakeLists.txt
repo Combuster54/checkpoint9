@@ -12,6 +12,10 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+
+find_package(eigen3_cmake_module REQUIRED)
+find_package(Eigen3)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -28,7 +32,7 @@ endif()
 
 
 add_executable(eight_trajectory_node src/eight_trajectory.cpp)
-ament_target_dependencies(eight_trajectory_node rclcpp std_msgs geometry_msgs Eigen3 tf2_ros nav_msgs) 
+ament_target_dependencies(eight_trajectory_node rclcpp std_msgs tf2_geometry_msgs geometry_msgs Eigen3 tf2_ros nav_msgs) 
 ament_export_dependencies(eigen3_cmake_module)
 ament_export_dependencies(Eigen3)
 

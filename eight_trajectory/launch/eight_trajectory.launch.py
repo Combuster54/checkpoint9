@@ -15,9 +15,10 @@ def generate_launch_description():
             output='screen')
     return LaunchDescription([
 
-        node_1,
+        node_1
+        ,
         TimerAction(
-                period=2.0,
+                period=1.0,
                 actions=[node_2],
             )
 
